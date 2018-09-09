@@ -197,12 +197,20 @@ template<class T> inline Vector3<typename Color3<T>::FloatingPointType> toXyz(ty
 }
 
 /* Value for full channel (1.0f for floats, 255 for unsigned byte) */
+#if !defined(CORRADE_MSVC2017_COMPATIBILITY) || defined(CORRADE_MSVC2015_COMPATIBILITY)
 template<class T> constexpr typename std::enable_if<std::is_floating_point<T>::value, T>::type fullChannel() {
     return T(1);
 }
 template<class T> constexpr typename std::enable_if<std::is_integral<T>::value, T>::type fullChannel() {
     return Implementation::bitMax<T>();
 }
+#else
+template<class T> constexpr T fullChannel() { return bitMax<T>(); }
+/** @todo half */
+template<> constexpr float fullChannel<float>() { return 1.0f; }
+template<> constexpr double fullChannel<double>() { return 1.0; }
+template<> constexpr long double fullChannel<long double>() { return 1.0l; }
+#endif
 
 }
 
