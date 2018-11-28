@@ -30,9 +30,13 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT CMAKE_CXX_COMPILER_VERSION VERSI
     add_compile_options("-fno-strict-aliasing")
 endif()
 
-# On MSVC remove /W3, as we are replacing it with /W4
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
-    string(REPLACE "/W3" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+if (NOT HUNTER_ENABLED)
+    # On MSVC remove /W3, as we are replacing it with /W4
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
+        string(REPLACE "/W3" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    endif()
+    # See : https://docs.hunter.sh/en/latest/creating-new/create/cmake.html
+    # It is not recommended to modify CMAKE_CXX_FLAGS when using hunter to build the package
 endif()
 
 # Emscripten needs special flag to use WebGL 2
