@@ -115,6 +115,9 @@ endif()
 
 # GLFW application
 if(WITH_GLFWAPPLICATION)
+    if (HUNTER_ENABLED)
+        hunter_add_package(glfw)
+    endif()
     find_package(GLFW)
     if(NOT GLFW_FOUND)
         message(FATAL_ERROR "GLFW library, required by GlfwApplication, was not found. Set WITH_GLFWAPPLICATION to OFF to skip building it.")
@@ -218,6 +221,9 @@ endif()
 
 # SDL2 application
 if(WITH_SDL2APPLICATION)
+    if (HUNTER_ENABLED)
+        hunter_add_package(SDL2)
+    endif()
     find_package(SDL2)
     if(NOT SDL2_FOUND)
         message(FATAL_ERROR "SDL2 library, required by Sdl2Application, was not found. Set WITH_SDL2APPLICATION to OFF to skip building it.")

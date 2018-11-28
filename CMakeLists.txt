@@ -64,6 +64,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/")
 
 # Find Corrade first so we can check on the target
+if(HUNTER_ENABLED)
+    hunter_add_package(corrade)
+endif()
 find_package(Corrade REQUIRED Utility)
 
 include(CMakeDependentOption)
