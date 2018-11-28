@@ -49,6 +49,13 @@ endif()
 if(NOT CMAKE_VERSION VERSION_LESS 3.4.0 AND NOT CMAKE_SYSTEM_NAME STREQUAL "Android")
     set(LANG CXX)
 endif()
+
+include("modules/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/pthom/hunter/archive/test-corrade-v2018.10.tar.gz"
+    SHA1 "3415f425f0ff1aa1754b8a2b57c77ba20f5b7bbc"
+)
+
 project(Magnum ${LANG})
 
 # Use folders for nice tree in Visual Studio and XCode
